@@ -10,6 +10,8 @@ export const webRoutes = [
   { method: "POST", path: "/authenticate", config: accountsController.login },
 
   { method: "GET", path: "/donate", config: donationsController.index },
+  { method: "POST", path: "/donate", config: donationsController.donate },
+  { method: "GET", path: "/report", config: donationsController.report },
 
   {
     method: "GET",
