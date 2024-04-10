@@ -1,12 +1,11 @@
-import Mongoose from "mongoose";
+import { Schema, model } from "mongoose";
+import { User } from "../../types/donation-types";
 
-const { Schema } = Mongoose;
-
-const userSchema = new Schema({
+const userSchema = new Schema<User>({
   firstName: String,
   lastName: String,
   email: String,
   password: String,
 });
 
-export const UserMongoose = Mongoose.model("User", userSchema);
+export const UserMongoose = model("User", userSchema);

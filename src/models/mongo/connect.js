@@ -1,10 +1,11 @@
 import * as dotenv from "dotenv";
 import Mongoose from "mongoose";
+// @ts-ignore
 import * as mongooseSeeder from "mais-mongoose-seeder";
 import { userStore } from "./user-store.js";
-import { candidateStore } from "./candidate-store.js";
-import { donationStore } from "./donation-store.js";
 import { seedData } from "./seed-data.js";
+import { donationStore } from "./donation-store.js";
+import { candidateStore } from "./candidate-store.js";
 const seedLib = mongooseSeeder.default;
 async function seed() {
     const seeder = seedLib(Mongoose);
@@ -25,7 +26,7 @@ export function connectMongo(db) {
     mongoDb.on("disconnected", () => {
         console.log("database disconnected");
     });
-    mongoDb.once("open", () => {
+    mongoDb.once("open", function () {
         console.log(`database connected to ${mongoDb.name} on ${mongoDb.host}`);
         seed();
     });

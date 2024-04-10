@@ -1,4 +1,4 @@
-import Hapi from "@hapi/hapi";
+import Hapi, { Server } from "@hapi/hapi";
 import Inert from "@hapi/inert";
 import Vision from "@hapi/vision";
 import Cookie from "@hapi/cookie";
@@ -22,7 +22,7 @@ function importEnvs() {
   }
 }
 
-async function initPlugins(server) {
+async function initPlugins(server: Server) {
   await server.register(Inert);
   await server.register(Vision);
   await server.register(Cookie);
@@ -40,7 +40,7 @@ async function initPlugins(server) {
   });
 }
 
-function initSecurityStrategies(server) {
+function initSecurityStrategies(server: Server) {
   server.auth.strategy("session", "cookie", {
     cookie: {
       name: process.env.cookie_name,

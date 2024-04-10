@@ -1,20 +1,27 @@
+import { Donation } from "../../types/donation-types.js";
 import { DonationMongoose } from "./donation.js";
 
 export const donationStore = {
-  async find() {
+  async find(): Promise<Donation[]> {
     const donations = await DonationMongoose.find().populate("donor").populate("candidate").lean();
+    donations.forEach((donation) => {
+      // @ts-ignore
+      donation.donor = `${donation.donor.firstName} ${donation.donor.lastName}`;
+    });
     return donations;
   },
 
-  async findBy(id) {
-    const donations = await DonationMongoose.find({ candidate: id });
-    return donations;
+  async findBy(id: string): Promise<Donation | null> {
+    const donation = await DonationMongoose.findOne({ candidate: id });
+    if (!donation) {
+      return null;
+    }
+    return donation;
   },
 
-  async add(donation) {
+  async add(donation: Donation): Promise<Donation | null> {
     let newDonation = new DonationMongoose({ ...donation });
     await newDonation.save();
-    newDonation = await DonationMongoose.findOne({ _id: newDonation._id }).populate("candidate").lean();
     return newDonation;
   },
 

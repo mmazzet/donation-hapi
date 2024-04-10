@@ -12,7 +12,7 @@ export const candidateStore = {
         const candidate = await CandidateMongoose.findOne({
             lastName,
             firstName,
-        });
+        }).lean();
         return candidate;
     },
 };

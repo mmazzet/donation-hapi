@@ -2,13 +2,13 @@ import { db } from "../models/db.js";
 export const accountsController = {
     index: {
         auth: false,
-        handler: function (request, h) {
+        handler: async function (request, h) {
             return h.view("Main", { title: "Welcome to Donation" });
         },
     },
     showSignup: {
         auth: false,
-        handler: function (request, h) {
+        handler: async function (request, h) {
             return h.view("Signup", { title: "Sign up for Donation" });
         },
     },
@@ -22,7 +22,7 @@ export const accountsController = {
     },
     showLogin: {
         auth: false,
-        handler: function (request, h) {
+        handler: async function (request, h) {
             return h.view("Login", { title: "Login to Donation" });
         },
     },
@@ -39,7 +39,7 @@ export const accountsController = {
         },
     },
     logout: {
-        handler: function (request, h) {
+        handler: async function (request, h) {
             request.cookieAuth.clear();
             return h.redirect("/");
         },
