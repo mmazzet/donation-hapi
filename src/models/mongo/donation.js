@@ -1,9 +1,11 @@
-import Mongoose from "mongoose";
-const { Schema } = Mongoose;
+import { Schema, model } from "mongoose";
 const donationSchema = new Schema({
     amount: Number,
     method: String,
-    donor: String,
+    donor: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+    },
     candidate: {
         type: Schema.Types.ObjectId,
         ref: "Candidate",
@@ -11,4 +13,4 @@ const donationSchema = new Schema({
     lat: String,
     lng: String,
 });
-export const DonationMongoose = Mongoose.model("Donation", donationSchema);
+export const DonationMongoose = model("Donation", donationSchema);
